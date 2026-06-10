@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>FocusFlow — Deep Work Timer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,400;0,9..144,600;1,9..144,200;1,9..144,400&family=Inter:wght@300;400;500;600&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"/>
+  <!-- SVG favicon — proper tomato -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%20100%20100%22%20width%3D%22100%22%20height%3D%22100%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22fav99_BG%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%231a1410%22%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%230d0a08%22%2F%3E%0A%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%3CradialGradient%20id%3D%22fav99_AMB%22%20cx%3D%2270%25%22%20cy%3D%2260%25%22%20r%3D%2255%25%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28255%2C176%2C40%2C0.18%29%22%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22transparent%22%2F%3E%0A%20%20%20%20%3C%2FradialGradient%3E%0A%20%20%20%20%3CradialGradient%20id%3D%22fav99_TOM%22%20cx%3D%2238%25%22%20cy%3D%2232%25%22%20r%3D%2262%25%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23d4880a%22%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22%23b06a06%22%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%236b3e02%22%2F%3E%0A%20%20%20%20%3C%2FradialGradient%3E%0A%20%20%20%20%3CclipPath%20id%3D%22fav99_CLIP%22%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20rx%3D%2222%22%2F%3E%3C%2FclipPath%3E%0A%20%20%20%20%3CclipPath%20id%3D%22fav99_RH%22%3E%3Crect%20x%3D%2250%22%20y%3D%220%22%20width%3D%2250%22%20height%3D%22100%22%2F%3E%3C%2FclipPath%3E%0A%20%20%20%20%3Cfilter%20id%3D%22fav99_GLOW%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%222.5%22%20result%3D%22blur%22%2F%3E%0A%20%20%20%20%20%20%3CfeMerge%3E%3CfeMergeNode%20in%3D%22blur%22%2F%3E%3CfeMergeNode%20in%3D%22SourceGraphic%22%2F%3E%3C%2FfeMerge%3E%0A%20%20%20%20%3C%2Ffilter%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3C%21--%20Background%20--%3E%0A%20%20%3Crect%20width%3D%22100%22%20height%3D%22100%22%20rx%3D%2222%22%20fill%3D%22url%28%23fav99_BG%29%22%2F%3E%0A%20%20%3Crect%20width%3D%22100%22%20height%3D%22100%22%20rx%3D%2222%22%20fill%3D%22url%28%23fav99_AMB%29%22%2F%3E%0A%20%20%3C%21--%20Right-half%20amber%20fill%20--%3E%0A%20%20%3Crect%20x%3D%2250%22%20y%3D%220%22%20width%3D%2250%22%20height%3D%22100%22%20rx%3D%220%22%20fill%3D%22%23d4880a%22%20clip-path%3D%22url%28%23fav99_CLIP%29%22%20opacity%3D%220.92%22%2F%3E%0A%20%20%3C%21--%20Subtle%20vertical%20divider%20line%20--%3E%0A%20%20%3Cline%20x1%3D%2250%22%20y1%3D%225%22%20x2%3D%2250%22%20y2%3D%2295%22%20stroke%3D%22rgba%28255%2C200%2C80%2C0.25%29%22%20stroke-width%3D%220.8%22%2F%3E%0A%20%20%3C%21--%20Glowing%20orbital%20ring%20--%3E%0A%20%20%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2233%22%20fill%3D%22none%22%20stroke%3D%22%23ffba30%22%20stroke-width%3D%222.8%22%20opacity%3D%220.95%22%20filter%3D%22url%28%23fav99_GLOW%29%22%2F%3E%0A%20%20%3C%21--%20Orbital%20dot%20%E2%80%94%20left%20side%20of%20ring%20--%3E%0A%20%20%3Ccircle%20cx%3D%2217%22%20cy%3D%2250%22%20r%3D%225.5%22%20fill%3D%22%23ffba30%22%20filter%3D%22url%28%23fav99_GLOW%29%22%2F%3E%0A%20%20%3C%21--%20Inner%20dark%20circle%20%28tomato%20body%20base%29%20--%3E%0A%20%20%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2219%22%20fill%3D%22%23191410%22%2F%3E%0A%20%20%3C%21--%20Tomato%20body%20--%3E%0A%20%20%3Ccircle%20cx%3D%2250%22%20cy%3D%2253%22%20r%3D%2213%22%20fill%3D%22url%28%23fav99_TOM%29%22%2F%3E%0A%20%20%3C%21--%20Tomato%20leaf%20--%3E%0A%20%20%3Cpath%20d%3D%22M50%2040c0%200-1.2-2.4-3.2-2.8c1.1%201.0%201.9%202.4%202.5%202.8%22%20fill%3D%22%233a7a44%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M50%2040c0%200%201.2-2.4%203.2-2.2c-1.0%201.1-2.4%202.5-2.8%202.2%22%20fill%3D%22%232e6036%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M49.4%2039.6C46.8%2038.4%2043.6%2039.6%2044.5%2042.4c1.4-1.9%203.6-2.6%204.9-2.8%22%20fill%3D%22%233a7a44%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M50.6%2039.6C53.2%2038.4%2056.4%2039.6%2055.5%2042.4c-1.4-1.9-3.6-2.6-4.9-2.8%22%20fill%3D%22%232e6036%22%2F%3E%0A%20%20%3C%21--%20Highlight%20on%20tomato%20--%3E%0A%20%20%3Cellipse%20cx%3D%2245.5%22%20cy%3D%2248.5%22%20rx%3D%223.5%22%20ry%3D%222.2%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.22%29%22%20transform%3D%22rotate%28-20%2045.5%2048.5%29%22%2F%3E%0A%3C%2Fsvg%3E"/>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader" class="loader">
+  <div class="loader-tomato"><svg viewBox="0 0 100 100" width="92" height="92" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="ni1_BG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a1410"/>
+      <stop offset="100%" stop-color="#0d0a08"/>
+    </linearGradient>
+    <radialGradient id="ni1_AMB" cx="70%" cy="60%" r="55%">
+      <stop offset="0%" stop-color="rgba(255,176,40,0.18)"/>
+      <stop offset="100%" stop-color="transparent"/>
+    </radialGradient>
+    <radialGradient id="ni1_TOM" cx="38%" cy="32%" r="62%">
+      <stop offset="0%" stop-color="#d4880a"/>
+      <stop offset="55%" stop-color="#b06a06"/>
+      <stop offset="100%" stop-color="#6b3e02"/>
+    </radialGradient>
+    <clipPath id="ni1_CLIP"><rect width="100" height="100" rx="22"/></clipPath>
+    <clipPath id="ni1_RH"><rect x="50" y="0" width="50" height="100"/></clipPath>
+    <filter id="ni1_GLOW" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <!-- Background -->
+  <rect width="100" height="100" rx="22" fill="url(#ni1_BG)"/>
+  <rect width="100" height="100" rx="22" fill="url(#ni1_AMB)"/>
+  <!-- Right-half amber fill -->
+  <rect x="50" y="0" width="50" height="100" rx="0" fill="#d4880a" clip-path="url(#ni1_CLIP)" opacity="0.92"/>
+  <!-- Subtle vertical divider line -->
+  <line x1="50" y1="5" x2="50" y2="95" stroke="rgba(255,200,80,0.25)" stroke-width="0.8"/>
+  <!-- Glowing orbital ring -->
+  <circle cx="50" cy="50" r="33" fill="none" stroke="#ffba30" stroke-width="2.8" opacity="0.95" filter="url(#ni1_GLOW)"/>
+  <!-- Orbital dot — left side of ring -->
+  <circle cx="17" cy="50" r="5.5" fill="#ffba30" filter="url(#ni1_GLOW)"/>
+  <!-- Inner dark circle (tomato body base) -->
+  <circle cx="50" cy="50" r="19" fill="#191410"/>
+  <!-- Tomato body -->
+  <circle cx="50" cy="53" r="13" fill="url(#ni1_TOM)"/>
+  <!-- Tomato leaf -->
+  <path d="M50 40c0 0-1.2-2.4-3.2-2.8c1.1 1.0 1.9 2.4 2.5 2.8" fill="#3a7a44"/>
+  <path d="M50 40c0 0 1.2-2.4 3.2-2.2c-1.0 1.1-2.4 2.5-2.8 2.2" fill="#2e6036"/>
+  <path d="M49.4 39.6C46.8 38.4 43.6 39.6 44.5 42.4c1.4-1.9 3.6-2.6 4.9-2.8" fill="#3a7a44"/>
+  <path d="M50.6 39.6C53.2 38.4 56.4 39.6 55.5 42.4c-1.4-1.9-3.6-2.6-4.9-2.8" fill="#2e6036"/>
+  <!-- Highlight on tomato -->
+  <ellipse cx="45.5" cy="48.5" rx="3.5" ry="2.2" fill="rgba(255,255,255,0.22)" transform="rotate(-20 45.5 48.5)"/>
+</svg></div>
+  <p class="loader-name">FocusFlow</p>
+  <div class="loader-bar"><div class="loader-prog" id="loaderProg"></div></div>
+  <p class="loader-msg" id="loaderMsg">Getting things ready…</p>
+</div>
+
+<!-- SUPPORT POPUP -->
+<div class="popup-overlay" id="supportPopup" onclick="closeSupportPopup(event)">
+  <div class="popup-box">
+    <button class="popup-close" onclick="closeSupportPopupDirect()">✕</button>
+    <div class="popup-icon">
+<svg viewBox="0 0 100 100" width="64" height="64" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="ni2_BG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a1410"/>
+      <stop offset="100%" stop-color="#0d0a08"/>
+    </linearGradient>
+    <radialGradient id="ni2_AMB" cx="70%" cy="60%" r="55%">
+      <stop offset="0%" stop-color="rgba(255,176,40,0.18)"/>
+      <stop offset="100%" stop-color="transparent"/>
+    </radialGradient>
+    <radialGradient id="ni2_TOM" cx="38%" cy="32%" r="62%">
+      <stop offset="0%" stop-color="#d4880a"/>
+      <stop offset="55%" stop-color="#b06a06"/>
+      <stop offset="100%" stop-color="#6b3e02"/>
+    </radialGradient>
+    <clipPath id="ni2_CLIP"><rect width="100" height="100" rx="22"/></clipPath>
+    <clipPath id="ni2_RH"><rect x="50" y="0" width="50" height="100"/></clipPath>
+    <filter id="ni2_GLOW" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <!-- Background -->
+  <rect width="100" height="100" rx="22" fill="url(#ni2_BG)"/>
+  <rect width="100" height="100" rx="22" fill="url(#ni2_AMB)"/>
+  <!-- Right-half amber fill -->
+  <rect x="50" y="0" width="50" height="100" rx="0" fill="#d4880a" clip-path="url(#ni2_CLIP)" opacity="0.92"/>
+  <!-- Subtle vertical divider line -->
+  <line x1="50" y1="5" x2="50" y2="95" stroke="rgba(255,200,80,0.25)" stroke-width="0.8"/>
+  <!-- Glowing orbital ring -->
+  <circle cx="50" cy="50" r="33" fill="none" stroke="#ffba30" stroke-width="2.8" opacity="0.95" filter="url(#ni2_GLOW)"/>
+  <!-- Orbital dot — left side of ring -->
+  <circle cx="17" cy="50" r="5.5" fill="#ffba30" filter="url(#ni2_GLOW)"/>
+  <!-- Inner dark circle (tomato body base) -->
+  <circle cx="50" cy="50" r="19" fill="#191410"/>
+  <!-- Tomato body -->
+  <circle cx="50" cy="53" r="13" fill="url(#ni2_TOM)"/>
+  <!-- Tomato leaf -->
+  <path d="M50 40c0 0-1.2-2.4-3.2-2.8c1.1 1.0 1.9 2.4 2.5 2.8" fill="#3a7a44"/>
+  <path d="M50 40c0 0 1.2-2.4 3.2-2.2c-1.0 1.1-2.4 2.5-2.8 2.2" fill="#2e6036"/>
+  <path d="M49.4 39.6C46.8 38.4 43.6 39.6 44.5 42.4c1.4-1.9 3.6-2.6 4.9-2.8" fill="#3a7a44"/>
+  <path d="M50.6 39.6C53.2 38.4 56.4 39.6 55.5 42.4c-1.4-1.9-3.6-2.6-4.9-2.8" fill="#2e6036"/>
+  <!-- Highlight on tomato -->
+  <ellipse cx="45.5" cy="48.5" rx="3.5" ry="2.2" fill="rgba(255,255,255,0.22)" transform="rotate(-20 45.5 48.5)"/>
+</svg>
+    </div>
+    <h2 class="popup-title">Get in touch</h2>
+    <p class="popup-body">Have feedback, a bug to report, or just want to say hi? Drop a mail — I read everything.</p>
+    <a class="popup-mail" href="mailto:saisrichandra7@gmail.com">saisrichandra7@gmail.com</a>
+    <p class="popup-note">Built with ❤️ by Sai Sri Chandra &mdash; no tracking, no ads, just focus.</p>
+  </div>
+</div>
+
+<!-- LANDING -->
+<div id="landing" class="landing">
+
+  <nav class="nav" id="nav">
+    <a class="nav-brand" href="#" onclick="return false">
+<svg viewBox="0 0 100 100" width="28" height="28" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="ni3_BG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a1410"/>
+      <stop offset="100%" stop-color="#0d0a08"/>
+    </linearGradient>
+    <radialGradient id="ni3_AMB" cx="70%" cy="60%" r="55%">
+      <stop offset="0%" stop-color="rgba(255,176,40,0.18)"/>
+      <stop offset="100%" stop-color="transparent"/>
+    </radialGradient>
+    <radialGradient id="ni3_TOM" cx="38%" cy="32%" r="62%">
+      <stop offset="0%" stop-color="#d4880a"/>
+      <stop offset="55%" stop-color="#b06a06"/>
+      <stop offset="100%" stop-color="#6b3e02"/>
+    </radialGradient>
+    <clipPath id="ni3_CLIP"><rect width="100" height="100" rx="22"/></clipPath>
+    <clipPath id="ni3_RH"><rect x="50" y="0" width="50" height="100"/></clipPath>
+    <filter id="ni3_GLOW" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <!-- Background -->
+  <rect width="100" height="100" rx="22" fill="url(#ni3_BG)"/>
+  <rect width="100" height="100" rx="22" fill="url(#ni3_AMB)"/>
+  <!-- Right-half amber fill -->
+  <rect x="50" y="0" width="50" height="100" rx="0" fill="#d4880a" clip-path="url(#ni3_CLIP)" opacity="0.92"/>
+  <!-- Subtle vertical divider line -->
+  <line x1="50" y1="5" x2="50" y2="95" stroke="rgba(255,200,80,0.25)" stroke-width="0.8"/>
+  <!-- Glowing orbital ring -->
+  <circle cx="50" cy="50" r="33" fill="none" stroke="#ffba30" stroke-width="2.8" opacity="0.95" filter="url(#ni3_GLOW)"/>
+  <!-- Orbital dot — left side of ring -->
+  <circle cx="17" cy="50" r="5.5" fill="#ffba30" filter="url(#ni3_GLOW)"/>
+  <!-- Inner dark circle (tomato body base) -->
+  <circle cx="50" cy="50" r="19" fill="#191410"/>
+  <!-- Tomato body -->
+  <circle cx="50" cy="53" r="13" fill="url(#ni3_TOM)"/>
+  <!-- Tomato leaf -->
+  <path d="M50 40c0 0-1.2-2.4-3.2-2.8c1.1 1.0 1.9 2.4 2.5 2.8" fill="#3a7a44"/>
+  <path d="M50 40c0 0 1.2-2.4 3.2-2.2c-1.0 1.1-2.4 2.5-2.8 2.2" fill="#2e6036"/>
+  <path d="M49.4 39.6C46.8 38.4 43.6 39.6 44.5 42.4c1.4-1.9 3.6-2.6 4.9-2.8" fill="#3a7a44"/>
+  <path d="M50.6 39.6C53.2 38.4 56.4 39.6 55.5 42.4c-1.4-1.9-3.6-2.6-4.9-2.8" fill="#2e6036"/>
+  <!-- Highlight on tomato -->
+  <ellipse cx="45.5" cy="48.5" rx="3.5" ry="2.2" fill="rgba(255,255,255,0.22)" transform="rotate(-20 45.5 48.5)"/>
+</svg>
+      FocusFlow
+    </a>
+    <div class="nav-links">
+      <a href="#s-features">Features</a>
+      <a href="#s-how">How it works</a>
+      <a href="#s-sounds">Sounds</a>
+    </div>
+    <button class="nav-cta" onclick="enterApp()">Open App →</button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero-section">
+    <div class="hero-glow g1"></div>
+    <div class="hero-glow g2"></div>
+    <div class="hero-glow g3"></div>
+    <div class="hero-content reveal-up">
+      <span class="hero-pill">✦ Deep Work · Pomodoro · Ambient Sound</span>
+      <h1 class="hero-h1">One tomato.<br/><em>Your best hour.</em></h1>
+      <p class="hero-sub">FocusFlow pairs the Pomodoro Technique with real ambient synthesis, live Spotify control, and a focus lock that keeps you on task — no account needed.</p>
+      <div class="hero-actions">
+        <button class="btn-red" onclick="enterApp()">▶ Start Focusing — Free</button>
+        <a href="#s-features" class="btn-outline">See what's inside ↓</a>
+      </div>
+      <div class="hero-tags">
+        <span>⏱ Pomodoro timer</span><span>·</span>
+        <span>🎧 Real Spotify</span><span>·</span>
+        <span>🌧 5 ambient sounds</span><span>·</span>
+        <span>🔒 Focus lock</span>
+      </div>
+    </div>
+
+    <!-- LIVE PREVIEW -->
+    <div class="hero-preview reveal-up" style="transition-delay:.18s">
+      <div class="preview-shell">
+        <div class="preview-header">
+          <div class="preview-dots"><span></span><span></span><span></span></div>
+          <span class="preview-title">FocusFlow</span>
+          <div style="width:48px"></div>
+        </div>
+        <div class="preview-body">
+          <div class="preview-dial-col">
+            <div class="preview-tabs">
+              <span class="pt active">Focus</span>
+              <span class="pt">Short</span>
+              <span class="pt">Long</span>
+            </div>
+            <div class="preview-dial">
+              <svg viewBox="0 0 130 130" width="130" height="130">
+                <circle cx="65" cy="65" r="56" fill="none" stroke="rgba(255,186,48,.06)" stroke-width="10"/>
+                <circle cx="65" cy="65" r="56" fill="none" stroke="hsl(42,90%,62%)" stroke-width="10" stroke-linecap="round"
+                  stroke-dasharray="282" stroke-dashoffset="56" transform="rotate(-90 65 65)"
+                  style="filter:drop-shadow(0 0 8px rgba(255,186,48,.5))"/>
+                <text x="65" y="60" text-anchor="middle" font-family="DM Mono" font-size="22" fill="hsl(42,90%,62%)" font-weight="300">24:43</text>
+                <text x="65" y="75" text-anchor="middle" font-family="Inter" font-size="8" fill="rgba(255,255,255,.3)" letter-spacing="2">FOCUS</text>
+              </svg>
+            </div>
+            <div class="preview-play">▶</div>
+          </div>
+          <div class="preview-sp-col">
+            <div class="preview-now">
+              <div class="preview-art">🎵</div>
+              <div>
+                <div class="preview-track">Lofi Chill</div>
+                <div class="preview-artist">Study Music</div>
+              </div>
+            </div>
+            <div class="preview-pbar"><div class="preview-pfill"></div></div>
+            <div class="preview-sounds">
+              <div class="ps active">🌧</div>
+              <div class="ps">🌿</div>
+              <div class="ps">☕</div>
+              <div class="ps">🌊</div>
+              <div class="ps">🔥</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span>Pomodoro Timer</span><span class="mdot">·</span>
+      <span>Ambient Synthesis</span><span class="mdot">·</span>
+      <span>Spotify Integration</span><span class="mdot">·</span>
+      <span>Focus Lock</span><span class="mdot">·</span>
+      <span>Custom Timer</span><span class="mdot">·</span>
+      <span>Dark &amp; Light Mode</span><span class="mdot">·</span>
+      <span>Pomodoro Timer</span><span class="mdot">·</span>
+      <span>Ambient Synthesis</span><span class="mdot">·</span>
+      <span>Spotify Integration</span><span class="mdot">·</span>
+      <span>Focus Lock</span><span class="mdot">·</span>
+      <span>Custom Timer</span><span class="mdot">·</span>
+      <span>Dark &amp; Light Mode</span><span class="mdot">·</span>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <section class="land-section" id="s-features">
+    <div class="section-label">What's inside</div>
+    <h2 class="section-title">Built for the way <em>you</em> work</h2>
+    <div class="feat-bento">
+      <div class="bento-card bento-wide reveal-up">
+        <div class="bc-tomato"><div class="bc-logo-icon"></div></div>
+        <div class="bc-text">
+          <h3>Precision Pomodoro Timer</h3>
+          <p>A hand-drawn canvas dial with smooth arc animation, tick marks, and glow. Choose 25, 50, 15 or 90 minute blocks — or dial in any custom time down to the second.</p>
+          <div class="bc-chips">
+            <span>Focus / Short / Long modes</span>
+            <span>Custom manual timer</span>
+            <span>Auto-cycles 4 sessions</span>
+          </div>
+        </div>
+      </div>
+      <div class="bento-card reveal-up" style="transition-delay:.07s">
+        <div class="bc-ico">🎧</div>
+        <h3>Real Spotify</h3>
+        <p>Connect your actual account. Browse playlists, control playback. Never leave the session.</p>
+      </div>
+      <div class="bento-card reveal-up" style="transition-delay:.12s">
+        <div class="bc-ico">🌧</div>
+        <h3>5 Ambient Sounds</h3>
+        <p>Rain, Forest, Café, Ocean, Fireplace — each synthesised with the Web Audio API. No files, zero load time.</p>
+      </div>
+      <div class="bento-card reveal-up" style="transition-delay:.17s">
+        <div class="bc-ico">🔒</div>
+        <h3>Focus Lock</h3>
+        <p>Enable lock mode and you cannot leave until you turn it off — no sneaking to other tabs mid-session.</p>
+      </div>
+      <div class="bento-card reveal-up" style="transition-delay:.22s">
+        <div class="bc-ico">🌅</div>
+        <h3>Dark &amp; Light Mode</h3>
+        <p>Swap themes live without interrupting a running timer. Dark obsidian or warm parchment.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="land-section alt-bg" id="s-how">
+    <div class="section-label">The method</div>
+    <h2 class="section-title">Four steps to deep work</h2>
+    <div class="steps-grid">
+      <div class="step-card reveal-left">
+        <div class="step-num">01</div>
+        <h3>Pick one task</h3>
+        <p>Commit to a single thing. No tabs. No multitasking.</p>
+      </div>
+      <div class="step-arrow reveal-left" style="transition-delay:.07s">→</div>
+      <div class="step-card reveal-left" style="transition-delay:.12s">
+        <div class="step-num">02</div>
+        <h3>Set 25 minutes</h3>
+        <p>Start the timer. Use custom mode for longer deep work sprints.</p>
+      </div>
+      <div class="step-arrow reveal-left" style="transition-delay:.18s">→</div>
+      <div class="step-card reveal-left" style="transition-delay:.22s">
+        <div class="step-num">03</div>
+        <h3>Work until it rings</h3>
+        <p>Ambient sound wraps you. Focus Lock guards you. Just work.</p>
+      </div>
+      <div class="step-arrow reveal-left" style="transition-delay:.28s">→</div>
+      <div class="step-card reveal-left" style="transition-delay:.32s">
+        <div class="step-num">04</div>
+        <h3>Rest. Repeat.</h3>
+        <p>5 min break. Every 4 sessions, 15 mins. The cycle compounds.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- AMBIENT SOUNDS — no canvas animations, just clean cards -->
+  <section class="land-section" id="s-sounds">
+    <div class="section-label">Ambient audio</div>
+    <h2 class="section-title">Sounds you can disappear into</h2>
+    <p class="sounds-caveat">(Note — all five sounds are synthesised purely with the Web Audio API in your browser. Because they share the same synthesis approach, they may sound similar. Future versions will use recorded samples.)</p>
+    <div class="sounds-row">
+      <div class="sound-card sc-rain reveal-up">
+        <div class="sc-ico">🌧</div>
+        <div class="sc-name">Rain</div>
+        <div class="sc-desc">Filtered white noise with random drop pops. Masks mid &amp; high distraction frequencies.</div>
+        <div class="sc-tag">White noise · Filtered</div>
+      </div>
+      <div class="sound-card sc-forest reveal-up" style="transition-delay:.07s">
+        <div class="sc-ico">🌿</div>
+        <div class="sc-name">Forest</div>
+        <div class="sc-desc">Wind drone plus LFO-modulated rustling with randomised bird chirps.</div>
+        <div class="sc-tag">Wind drone · LFO</div>
+      </div>
+      <div class="sound-card sc-cafe reveal-up" style="transition-delay:.14s">
+        <div class="sc-ico">☕</div>
+        <div class="sc-name">Café</div>
+        <div class="sc-desc">Band-pass chatter hum with spoon-clink tones. For when silence feels too heavy.</div>
+        <div class="sc-tag">Band-pass · Chatter</div>
+      </div>
+      <div class="sound-card sc-ocean reveal-up" style="transition-delay:.21s">
+        <div class="sc-ico">🌊</div>
+        <div class="sc-name">Ocean</div>
+        <div class="sc-desc">Two offset LFOs create a 5-second surge-and-retreat wave cycle.</div>
+        <div class="sc-tag">Dual LFO · Surge</div>
+      </div>
+      <div class="sound-card sc-fire reveal-up" style="transition-delay:.28s">
+        <div class="sc-ico">🔥</div>
+        <div class="sc-name">Fireplace</div>
+        <div class="sc-desc">Deep rumble plus random crackle pops. Warm and grounding for evening sessions.</div>
+        <div class="sc-tag">Rumble · Crackle</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-glow"></div>
+    <div class="reveal-up">
+      <div class="cta-tomato">
+<svg viewBox="0 0 100 100" width="96" height="96" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="ni4_BG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a1410"/>
+      <stop offset="100%" stop-color="#0d0a08"/>
+    </linearGradient>
+    <radialGradient id="ni4_AMB" cx="70%" cy="60%" r="55%">
+      <stop offset="0%" stop-color="rgba(255,176,40,0.18)"/>
+      <stop offset="100%" stop-color="transparent"/>
+    </radialGradient>
+    <radialGradient id="ni4_TOM" cx="38%" cy="32%" r="62%">
+      <stop offset="0%" stop-color="#d4880a"/>
+      <stop offset="55%" stop-color="#b06a06"/>
+      <stop offset="100%" stop-color="#6b3e02"/>
+    </radialGradient>
+    <clipPath id="ni4_CLIP"><rect width="100" height="100" rx="22"/></clipPath>
+    <clipPath id="ni4_RH"><rect x="50" y="0" width="50" height="100"/></clipPath>
+    <filter id="ni4_GLOW" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <!-- Background -->
+  <rect width="100" height="100" rx="22" fill="url(#ni4_BG)"/>
+  <rect width="100" height="100" rx="22" fill="url(#ni4_AMB)"/>
+  <!-- Right-half amber fill -->
+  <rect x="50" y="0" width="50" height="100" rx="0" fill="#d4880a" clip-path="url(#ni4_CLIP)" opacity="0.92"/>
+  <!-- Subtle vertical divider line -->
+  <line x1="50" y1="5" x2="50" y2="95" stroke="rgba(255,200,80,0.25)" stroke-width="0.8"/>
+  <!-- Glowing orbital ring -->
+  <circle cx="50" cy="50" r="33" fill="none" stroke="#ffba30" stroke-width="2.8" opacity="0.95" filter="url(#ni4_GLOW)"/>
+  <!-- Orbital dot — left side of ring -->
+  <circle cx="17" cy="50" r="5.5" fill="#ffba30" filter="url(#ni4_GLOW)"/>
+  <!-- Inner dark circle (tomato body base) -->
+  <circle cx="50" cy="50" r="19" fill="#191410"/>
+  <!-- Tomato body -->
+  <circle cx="50" cy="53" r="13" fill="url(#ni4_TOM)"/>
+  <!-- Tomato leaf -->
+  <path d="M50 40c0 0-1.2-2.4-3.2-2.8c1.1 1.0 1.9 2.4 2.5 2.8" fill="#3a7a44"/>
+  <path d="M50 40c0 0 1.2-2.4 3.2-2.2c-1.0 1.1-2.4 2.5-2.8 2.2" fill="#2e6036"/>
+  <path d="M49.4 39.6C46.8 38.4 43.6 39.6 44.5 42.4c1.4-1.9 3.6-2.6 4.9-2.8" fill="#3a7a44"/>
+  <path d="M50.6 39.6C53.2 38.4 56.4 39.6 55.5 42.4c-1.4-1.9-3.6-2.6-4.9-2.8" fill="#2e6036"/>
+  <!-- Highlight on tomato -->
+  <ellipse cx="45.5" cy="48.5" rx="3.5" ry="2.2" fill="rgba(255,255,255,0.22)" transform="rotate(-20 45.5 48.5)"/>
+</svg>
+      </div>
+      <h2 class="cta-h2">Ready to do your best work?</h2>
+      <p class="cta-p">No account. No installs. Open and start.</p>
+      <button class="btn-red large" onclick="enterApp()">Launch FocusFlow →</button>
+    </div>
+  </section>
+
+  <footer class="land-footer">
+    <div class="foot-logo">
+<svg viewBox="0 0 100 100" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="ni5_BG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a1410"/>
+      <stop offset="100%" stop-color="#0d0a08"/>
+    </linearGradient>
+    <radialGradient id="ni5_AMB" cx="70%" cy="60%" r="55%">
+      <stop offset="0%" stop-color="rgba(255,176,40,0.18)"/>
+      <stop offset="100%" stop-color="transparent"/>
+    </radialGradient>
+    <radialGradient id="ni5_TOM" cx="38%" cy="32%" r="62%">
+      <stop offset="0%" stop-color="#d4880a"/>
+      <stop offset="55%" stop-color="#b06a06"/>
+      <stop offset="100%" stop-color="#6b3e02"/>
+    </radialGradient>
+    <clipPath id="ni5_CLIP"><rect width="100" height="100" rx="22"/></clipPath>
+    <clipPath id="ni5_RH"><rect x="50" y="0" width="50" height="100"/></clipPath>
+    <filter id="ni5_GLOW" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <!-- Background -->
+  <rect width="100" height="100" rx="22" fill="url(#ni5_BG)"/>
+  <rect width="100" height="100" rx="22" fill="url(#ni5_AMB)"/>
+  <!-- Right-half amber fill -->
+  <rect x="50" y="0" width="50" height="100" rx="0" fill="#d4880a" clip-path="url(#ni5_CLIP)" opacity="0.92"/>
+  <!-- Subtle vertical divider line -->
+  <line x1="50" y1="5" x2="50" y2="95" stroke="rgba(255,200,80,0.25)" stroke-width="0.8"/>
+  <!-- Glowing orbital ring -->
+  <circle cx="50" cy="50" r="33" fill="none" stroke="#ffba30" stroke-width="2.8" opacity="0.95" filter="url(#ni5_GLOW)"/>
+  <!-- Orbital dot — left side of ring -->
+  <circle cx="17" cy="50" r="5.5" fill="#ffba30" filter="url(#ni5_GLOW)"/>
+  <!-- Inner dark circle (tomato body base) -->
+  <circle cx="50" cy="50" r="19" fill="#191410"/>
+  <!-- Tomato body -->
+  <circle cx="50" cy="53" r="13" fill="url(#ni5_TOM)"/>
+  <!-- Tomato leaf -->
+  <path d="M50 40c0 0-1.2-2.4-3.2-2.8c1.1 1.0 1.9 2.4 2.5 2.8" fill="#3a7a44"/>
+  <path d="M50 40c0 0 1.2-2.4 3.2-2.2c-1.0 1.1-2.4 2.5-2.8 2.2" fill="#2e6036"/>
+  <path d="M49.4 39.6C46.8 38.4 43.6 39.6 44.5 42.4c1.4-1.9 3.6-2.6 4.9-2.8" fill="#3a7a44"/>
+  <path d="M50.6 39.6C53.2 38.4 56.4 39.6 55.5 42.4c-1.4-1.9-3.6-2.6-4.9-2.8" fill="#2e6036"/>
+  <!-- Highlight on tomato -->
+  <ellipse cx="45.5" cy="48.5" rx="3.5" ry="2.2" fill="rgba(255,255,255,0.22)" transform="rotate(-20 45.5 48.5)"/>
+</svg>
+      FocusFlow
+    </div>
+    <p>Built for deep workers. No tracking. No ads.</p>
+    <button class="foot-contact" onclick="openSupportPopup()">✉️ Contact</button>
+  </footer>
+
+</div><!-- /landing -->
+
+<!-- LOCK WALL — hard block, cannot dismiss without turning lock off -->
+<div class="lock-wall" id="lockWall">
+  <div class="lw-box">
+    <div class="lw-tomato-wrap">
+<svg viewBox="0 0 100 100" width="80" height="80" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="ni6_BG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a1410"/>
+      <stop offset="100%" stop-color="#0d0a08"/>
+    </linearGradient>
+    <radialGradient id="ni6_AMB" cx="70%" cy="60%" r="55%">
+      <stop offset="0%" stop-color="rgba(255,176,40,0.18)"/>
+      <stop offset="100%" stop-color="transparent"/>
+    </radialGradient>
+    <radialGradient id="ni6_TOM" cx="38%" cy="32%" r="62%">
+      <stop offset="0%" stop-color="#d4880a"/>
+      <stop offset="55%" stop-color="#b06a06"/>
+      <stop offset="100%" stop-color="#6b3e02"/>
+    </radialGradient>
+    <clipPath id="ni6_CLIP"><rect width="100" height="100" rx="22"/></clipPath>
+    <clipPath id="ni6_RH"><rect x="50" y="0" width="50" height="100"/></clipPath>
+    <filter id="ni6_GLOW" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <!-- Background -->
+  <rect width="100" height="100" rx="22" fill="url(#ni6_BG)"/>
+  <rect width="100" height="100" rx="22" fill="url(#ni6_AMB)"/>
+  <!-- Right-half amber fill -->
+  <rect x="50" y="0" width="50" height="100" rx="0" fill="#d4880a" clip-path="url(#ni6_CLIP)" opacity="0.92"/>
+  <!-- Subtle vertical divider line -->
+  <line x1="50" y1="5" x2="50" y2="95" stroke="rgba(255,200,80,0.25)" stroke-width="0.8"/>
+  <!-- Glowing orbital ring -->
+  <circle cx="50" cy="50" r="33" fill="none" stroke="#ffba30" stroke-width="2.8" opacity="0.95" filter="url(#ni6_GLOW)"/>
+  <!-- Orbital dot — left side of ring -->
+  <circle cx="17" cy="50" r="5.5" fill="#ffba30" filter="url(#ni6_GLOW)"/>
+  <!-- Inner dark circle (tomato body base) -->
+  <circle cx="50" cy="50" r="19" fill="#191410"/>
+  <!-- Tomato body -->
+  <circle cx="50" cy="53" r="13" fill="url(#ni6_TOM)"/>
+  <!-- Tomato leaf -->
+  <path d="M50 40c0 0-1.2-2.4-3.2-2.8c1.1 1.0 1.9 2.4 2.5 2.8" fill="#3a7a44"/>
+  <path d="M50 40c0 0 1.2-2.4 3.2-2.2c-1.0 1.1-2.4 2.5-2.8 2.2" fill="#2e6036"/>
+  <path d="M49.4 39.6C46.8 38.4 43.6 39.6 44.5 42.4c1.4-1.9 3.6-2.6 4.9-2.8" fill="#3a7a44"/>
+  <path d="M50.6 39.6C53.2 38.4 56.4 39.6 55.5 42.4c-1.4-1.9-3.6-2.6-4.9-2.8" fill="#2e6036"/>
+  <!-- Highlight on tomato -->
+  <ellipse cx="45.5" cy="48.5" rx="3.5" ry="2.2" fill="rgba(255,255,255,0.22)" transform="rotate(-20 45.5 48.5)"/>
+</svg>
+    </div>
+    <div class="lw-icon">🔒</div>
+    <h2 class="lw-title">You're locked in</h2>
+    <p class="lw-body">Focus Lock is active. You cannot switch tabs or leave this page until you turn off the lock.</p>
+    <div class="lw-time" id="lockRem">25:00 remaining</div>
+    <p class="lw-hint">To leave, you must disable Focus Lock first.</p>
+    <button class="lw-disable" onclick="exitLockFull()">Disable Focus Lock &amp; leave</button>
+    <button class="lw-back" onclick="dismissLockFull()">↩ Stay &amp; keep focusing</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"><div class="toast-row"><span id="tIco">🎉</span><div><div id="tT1" class="t-t1">Done</div><div id="tT2" class="t-t2"></div></div></div></div>
+<div class="conf" id="conf"></div>
+
+<!-- APP -->
+<div id="app" class="app" style="display:none">
+  <header class="app-header">
+    <button class="app-logo" onclick="showLanding()">
+<svg viewBox="0 0 100 100" width="28" height="28" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="ni7_BG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a1410"/>
+      <stop offset="100%" stop-color="#0d0a08"/>
+    </linearGradient>
+    <radialGradient id="ni7_AMB" cx="70%" cy="60%" r="55%">
+      <stop offset="0%" stop-color="rgba(255,176,40,0.18)"/>
+      <stop offset="100%" stop-color="transparent"/>
+    </radialGradient>
+    <radialGradient id="ni7_TOM" cx="38%" cy="32%" r="62%">
+      <stop offset="0%" stop-color="#d4880a"/>
+      <stop offset="55%" stop-color="#b06a06"/>
+      <stop offset="100%" stop-color="#6b3e02"/>
+    </radialGradient>
+    <clipPath id="ni7_CLIP"><rect width="100" height="100" rx="22"/></clipPath>
+    <clipPath id="ni7_RH"><rect x="50" y="0" width="50" height="100"/></clipPath>
+    <filter id="ni7_GLOW" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <!-- Background -->
+  <rect width="100" height="100" rx="22" fill="url(#ni7_BG)"/>
+  <rect width="100" height="100" rx="22" fill="url(#ni7_AMB)"/>
+  <!-- Right-half amber fill -->
+  <rect x="50" y="0" width="50" height="100" rx="0" fill="#d4880a" clip-path="url(#ni7_CLIP)" opacity="0.92"/>
+  <!-- Subtle vertical divider line -->
+  <line x1="50" y1="5" x2="50" y2="95" stroke="rgba(255,200,80,0.25)" stroke-width="0.8"/>
+  <!-- Glowing orbital ring -->
+  <circle cx="50" cy="50" r="33" fill="none" stroke="#ffba30" stroke-width="2.8" opacity="0.95" filter="url(#ni7_GLOW)"/>
+  <!-- Orbital dot — left side of ring -->
+  <circle cx="17" cy="50" r="5.5" fill="#ffba30" filter="url(#ni7_GLOW)"/>
+  <!-- Inner dark circle (tomato body base) -->
+  <circle cx="50" cy="50" r="19" fill="#191410"/>
+  <!-- Tomato body -->
+  <circle cx="50" cy="53" r="13" fill="url(#ni7_TOM)"/>
+  <!-- Tomato leaf -->
+  <path d="M50 40c0 0-1.2-2.4-3.2-2.8c1.1 1.0 1.9 2.4 2.5 2.8" fill="#3a7a44"/>
+  <path d="M50 40c0 0 1.2-2.4 3.2-2.2c-1.0 1.1-2.4 2.5-2.8 2.2" fill="#2e6036"/>
+  <path d="M49.4 39.6C46.8 38.4 43.6 39.6 44.5 42.4c1.4-1.9 3.6-2.6 4.9-2.8" fill="#3a7a44"/>
+  <path d="M50.6 39.6C53.2 38.4 56.4 39.6 55.5 42.4c-1.4-1.9-3.6-2.6-4.9-2.8" fill="#2e6036"/>
+  <!-- Highlight on tomato -->
+  <ellipse cx="45.5" cy="48.5" rx="3.5" ry="2.2" fill="rgba(255,255,255,0.22)" transform="rotate(-20 45.5 48.5)"/>
+</svg>
+      FocusFlow
+    </button>
+    <nav class="app-nav">
+      <button class="an on" onclick="nav('timer',this)">Timer</button>
+      <button class="an" onclick="nav('settings',this)">Settings</button>
+    </nav>
+    <div class="app-controls">
+      <div class="theme-sw">
+        <button class="tsw on" id="ttDark" onclick="setAppTheme('dark')">🌑 Dark</button>
+        <button class="tsw" id="ttLight" onclick="setAppTheme('light')">☀️ Light</button>
+      </div>
+      <div class="lock-sw">
+        <button class="lsw on" id="ltFree" onclick="setLock(false)"><i class="ldot green"></i>Free</button>
+        <button class="lsw" id="ltLock" onclick="setLock(true)"><i class="ldot gold"></i>Lock</button>
+      </div>
+      <span class="hdate" id="dateChip"></span>
+      <button class="sup-btn" onclick="openSupportPopup()">✉️ Contact</button>
+    </div>
+  </header>
+
+  <div class="app-body">
+
+    <!-- TIMER VIEW -->
+    <div id="vTimer" class="timer-layout">
+
+      <!-- LEFT: ambient + today -->
+      <div class="panel panel-left">
+        <div class="panel-section">
+          <div class="ps-header">
+            <span class="ps-label">Ambient Sounds</span>
+            <div class="vol-row">
+              <span class="vol-l">Vol</span>
+              <input type="range" class="vol-range" id="ambVol" min="0" max="100" value="40" oninput="setAmbVol(this.value)"/>
+              <span class="vol-v" id="ambVolVal">40%</span>
+            </div>
+          </div>
+          <div class="amb-grid">
+            <button class="amb" id="amb_rain" onclick="playAmb('rain',this)">
+              <div class="amb-anim rain-anim">
+                <div class="rd"></div><div class="rd"></div><div class="rd"></div><div class="rd"></div><div class="rd"></div>
+              </div>
+              <span>Rain</span>
+            </button>
+            <button class="amb" id="amb_forest" onclick="playAmb('forest',this)">
+              <div class="amb-anim forest-anim">
+                <div class="lf"></div><div class="lf"></div><div class="lf"></div>
+              </div>
+              <span>Forest</span>
+            </button>
+            <button class="amb" id="amb_cafe" onclick="playAmb('cafe',this)">
+              <div class="amb-anim cafe-anim">
+                <div class="st"></div><div class="st"></div><div class="st"></div>
+              </div>
+              <span>Café</span>
+            </button>
+            <button class="amb" id="amb_waves" onclick="playAmb('waves',this)">
+              <div class="amb-anim wave-anim">
+                <svg viewBox="0 0 54 24" width="54" height="24" class="wave-svg">
+                  <path class="wp1" d="M0 16 Q13.5 6 27 16 Q40.5 26 54 16" stroke="rgba(80,160,240,.7)" stroke-width="2" fill="none"/>
+                  <path class="wp2" d="M0 20 Q13.5 10 27 20 Q40.5 30 54 20" stroke="rgba(80,160,240,.4)" stroke-width="1.5" fill="none"/>
+                </svg>
+              </div>
+              <span>Ocean</span>
+            </button>
+            <button class="amb" id="amb_fire" onclick="playAmb('fire',this)">
+              <div class="amb-anim fire-anim">
+                <div class="fl fl1"></div><div class="fl fl2"></div><div class="fl fl3"></div>
+              </div>
+              <span>Fire</span>
+            </button>
+            <button class="amb amb-off" onclick="stopAmb()">
+              <div class="amb-anim" style="display:flex;align-items:center;justify-content:center;opacity:.4;font-size:16px">✕</div>
+              <span>Off</span>
+            </button>
+          </div>
+          <div class="eq-strip" id="eqRow" style="display:none">
+            <span class="eq-name" id="eqLbl">—</span>
+            <div class="eq-bars" id="eqEl">
+              <div class="eq-b" style="--d:.55s;--h:9px"></div>
+              <div class="eq-b" style="--d:.82s;--h:13px"></div>
+              <div class="eq-b" style="--d:.63s;--h:7px"></div>
+              <div class="eq-b" style="--d:1.0s;--h:11px"></div>
+              <div class="eq-b" style="--d:.74s;--h:10px"></div>
+              <div class="eq-b" style="--d:.92s;--h:8px"></div>
+              <div class="eq-b" style="--d:.61s;--h:12px"></div>
+            </div>
+          </div>
+        </div>
+        <div class="panel-section today-block">
+          <span class="ps-label">Today</span>
+          <div class="today-row">
+            <div class="today-stat"><div class="ts-val" id="sSess" style="color:var(--gold)">0</div><div class="ts-key">Sessions</div></div>
+            <div class="today-stat"><div class="ts-val" id="sFoc" style="color:var(--purple)">0m</div><div class="ts-key">Focus</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CENTRE: dial -->
+      <div class="panel panel-centre">
+        <div class="mode-tabs">
+          <button class="mt on" onclick="setMode('focus',this)">Focus</button>
+          <button class="mt" onclick="setMode('short',this)">Short break</button>
+          <button class="mt" onclick="setMode('long',this)">Long break</button>
+        </div>
+        <div class="dial-wrap" id="dialWrap">
+          <div class="dial-glow" id="dialGlow"></div>
+          <div class="pulse-ring" id="pring"></div>
+          <canvas id="dc"></canvas>
+          <div class="dial-face">
+            <div class="dial-time" id="dtime" style="color:var(--gold)">
+              <span id="dM">25</span><span class="col" id="dCol">:</span><span id="dS">00</span>
+            </div>
+            <div class="dial-label" id="dMode">Focus</div>
+            <div class="dial-sess" id="dSess">Session 1 of 4</div>
+          </div>
+        </div>
+        <div class="ctrl-row">
+          <button class="ic-btn" onclick="resetTimer()" title="Reset">↩</button>
+          <button class="ic-btn" onclick="skipSess()" title="Skip">⏭</button>
+          <button class="play-btn" id="playBtn" onclick="toggleTimer()"><span id="pIco">▶</span></button>
+          <button class="ic-btn" id="muteBtn" onclick="toggleMute()">🔔</button>
+          <button class="ic-btn" onclick="tryFS()">⛶</button>
+        </div>
+        <div class="preset-row">
+          <button class="pr on" id="pr25" onclick="doPreset(25,this)">25 min</button>
+          <button class="pr" id="pr50" onclick="doPreset(50,this)">50 min</button>
+          <button class="pr" id="pr15" onclick="doPreset(15,this)">15 min</button>
+          <button class="pr" id="pr90" onclick="doPreset(90,this)">90 min</button>
+          <button class="pr pr-custom" id="prCustom" onclick="toggleCustom()">Custom ✎</button>
+        </div>
+        <div class="custom-panel" id="customRow" style="display:none">
+          <p class="cp-label">Set custom time</p>
+          <div class="cp-inputs">
+            <div class="cp-field">
+              <button class="cp-arrow" onclick="adjManual('m',1)">▲</button>
+              <input type="number" class="cp-inp" id="manM" value="25" min="0" max="180"/>
+              <button class="cp-arrow" onclick="adjManual('m',-1)">▼</button>
+              <span class="cp-unit">min</span>
+            </div>
+            <span class="cp-colon">:</span>
+            <div class="cp-field">
+              <button class="cp-arrow" onclick="adjManual('s',5)">▲</button>
+              <input type="number" class="cp-inp" id="manS" value="0" min="0" max="59"/>
+              <button class="cp-arrow" onclick="adjManual('s',-5)">▼</button>
+              <span class="cp-unit">sec</span>
+            </div>
+          </div>
+          <button class="cp-set" onclick="applyManual()">Set Timer</button>
+        </div>
+      </div>
+
+      <!-- RIGHT: Music launcher -->
+      <div class="panel panel-right">
+        <span class="ps-label">Music</span>
+        <div class="music-panel">
+          <p class="music-intro">Open your music in a separate tab — FocusFlow keeps running while you listen.</p>
+          <div class="music-links">
+            <button class="music-btn" onclick="openMusic('https://open.spotify.com')">
+              <span class="music-ico" style="background:#1DB954">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="#fff"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+              </span>
+              <div class="music-info">
+                <div class="music-name">Spotify</div>
+                <div class="music-sub">open.spotify.com</div>
+              </div>
+              <span class="music-arrow">↗</span>
+            </button>
+            <button class="music-btn" onclick="openMusic('https://music.youtube.com')">
+              <span class="music-ico" style="background:#FF0000">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="#fff"><path d="M12 0C5.376 0 0 5.376 0 12s5.376 12 12 12 12-5.376 12-12S18.624 0 12 0zm4.596 12.383l-6.79 3.89c-.308.176-.697-.045-.697-.4V8.127c0-.355.389-.576.697-.4l6.79 3.883c.308.177.308.597 0 .773z"/></svg>
+              </span>
+              <div class="music-info">
+                <div class="music-name">YouTube Music</div>
+                <div class="music-sub">music.youtube.com</div>
+              </div>
+              <span class="music-arrow">↗</span>
+            </button>
+            <button class="music-btn" onclick="openMusic('https://www.youtube.com/results?search_query=lofi+hip+hop+focus')">
+              <span class="music-ico" style="background:#282828">🎵</span>
+              <div class="music-info">
+                <div class="music-name">Lo-Fi on YouTube</div>
+                <div class="music-sub">Focus beats playlist</div>
+              </div>
+              <span class="music-arrow">↗</span>
+            </button>
+            <button class="music-btn" onclick="openMusic('https://www.youtube.com/watch?v=jfKfPfyJRdk')">
+              <span class="music-ico" style="background:#1a1a2e">☕</span>
+              <div class="music-info">
+                <div class="music-name">Lofi Girl — Live</div>
+                <div class="music-sub">24/7 study stream</div>
+              </div>
+              <span class="music-arrow">↗</span>
+            </button>
+            <button class="music-btn" onclick="openMusic('https://music.apple.com')">
+              <span class="music-ico" style="background:#fc3c44">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="#fff"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+              </span>
+              <div class="music-info">
+                <div class="music-name">Apple Music</div>
+                <div class="music-sub">music.apple.com</div>
+              </div>
+              <span class="music-arrow">↗</span>
+            </button>
+          </div>
+          <p class="music-note">All links open in a new tab — FocusFlow stays active and your timer keeps running.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SETTINGS VIEW -->
+    <div id="vSettings" class="view-panel" style="display:none">
+      <div class="settings-page">
+        <h2 class="pg-title">Settings</h2>
+        <p class="pg-sub" style="margin-bottom:24px">Adjust to your rhythm</p>
+
+        <div class="set-block">
+          <div class="set-block-title">Timer Durations</div>
+          <div id="durRows"></div>
+        </div>
+
+        <div class="set-block">
+          <div class="set-block-title">Colour Theme</div>
+          <div class="theme-pills" id="themeRow"></div>
+        </div>
+
+        <button class="back-btn" onclick="nav('timer',document.querySelectorAll('.an')[0])">← Back to timer</button>
+      </div>
+    </div>
+
+  </div><!-- /app-body -->
+
+  <nav class="mob-nav" id="mobNav">
+    <button class="mn on" onclick="nav('timer',this)"><span>⏱</span>Timer</button>
+    <button class="mn" onclick="nav('settings',this)"><span>⚙</span>Settings</button>
+  </nav>
+</div><!-- /app -->
+
+<script src="js/audio.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
