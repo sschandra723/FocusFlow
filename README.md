@@ -1,6 +1,9 @@
 # FocusFlow
 
 FocusFlow is a web-based productivity platform designed to help users maintain deep focus through structured work sessions, ambient sound environments, and distraction management tools.
+## Live Demo
+
+https://focusflow.netlify.app
 
 The application combines a Pomodoro timer, immersive background audio, focus protection mechanisms, and quick access to music platforms into a single workspace built for sustained concentration.
 
