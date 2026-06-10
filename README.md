@@ -2,7 +2,7 @@
 
 FocusFlow is a web-based productivity platform designed to help users maintain deep focus through structured work sessions, ambient sound environments, and distraction management tools.
 
-The application combines a Pomodoro timer, immersive background audio, focus protection mechanisms, and Spotify integration into a single workspace built for sustained concentration.
+The application combines a Pomodoro timer, immersive background audio, focus protection mechanisms, and quick access to music platforms into a single workspace built for sustained concentration.
 
 ---
 
@@ -12,12 +12,12 @@ Modern productivity is often disrupted by constant notifications, context switch
 
 The platform enables users to:
 
-- Run structured focus sessions using the Pomodoro technique
-- Create personalized work environments with ambient sounds
-- Minimize interruptions through Focus Lock
-- Track completed work sessions
-- Integrate Spotify for background listening
-- Switch seamlessly between focus and break cycles
+* Run structured focus sessions using the Pomodoro technique
+* Create personalized work environments with ambient sounds
+* Minimize interruptions through Focus Lock
+* Track completed work sessions
+* Access music platforms for background listening
+* Switch seamlessly between focus and break cycles
 
 ---
 
@@ -27,12 +27,12 @@ The platform enables users to:
 
 FocusFlow provides a configurable Pomodoro timer system with support for:
 
-- Focus Sessions
-- Short Breaks
-- Long Breaks
-- Custom durations
-- Automatic session transitions
-- Session completion tracking
+* Focus Sessions
+* Short Breaks
+* Long Breaks
+* Custom durations
+* Automatic session transitions
+* Session completion tracking
 
 The timer engine automatically manages the workflow between work and recovery periods to encourage sustainable productivity.
 
@@ -44,19 +44,19 @@ The application includes built-in ambient environments designed to improve conce
 
 Available soundscapes:
 
-- Rain
-- Forest
-- Café
-- Ocean
-- Fireplace
+* Rain
+* Forest
+* Café
+* Ocean
+* Fireplace
 
 The audio system supports:
 
-- Adjustable volume controls
-- Real-time switching between environments
-- Continuous looping playback
-- Audio caching for performance optimization
-- Web Audio API fallback generation
+* Adjustable volume controls
+* Real-time switching between environments
+* Continuous looping playback
+* Audio caching for performance optimization
+* Web Audio API fallback generation
 
 If audio files are unavailable, FocusFlow dynamically generates environmental sounds using browser audio synthesis.
 
@@ -68,10 +68,10 @@ Focus Lock helps reduce interruptions during active sessions.
 
 When enabled, FocusFlow can:
 
-- Warn users before leaving the page
-- Intercept navigation attempts
-- Reduce accidental session abandonment
-- Encourage uninterrupted focus periods
+* Warn users before leaving the page
+* Intercept navigation attempts
+* Reduce accidental session abandonment
+* Encourage uninterrupted focus periods
 
 This feature is designed for users who frequently lose focus due to tab switching or accidental navigation.
 
@@ -81,27 +81,27 @@ This feature is designed for users who frequently lose focus due to tab switchin
 
 FocusFlow maintains lightweight productivity statistics, including:
 
-- Completed focus sessions
-- Total focused minutes
-- Session progress
-- Active timer status
+* Completed focus sessions
+* Total focused minutes
+* Session progress
+* Active timer status
 
 These metrics provide users with immediate feedback on their productivity habits.
 
 ---
 
-### Spotify Integration
+### Quick Music Access
 
-FocusFlow includes Spotify connectivity for users who prefer listening to music while working.
+FocusFlow provides convenient access to popular music and focus platforms.
 
-Features include:
+Users can quickly open:
 
-- Spotify account authentication
-- Playback controls
-- Playlist support
-- Session-friendly listening experience
+* Spotify
+* YouTube Music
+* Lo-Fi Streams
+* Ambient Audio Platforms
 
-Spotify token exchange is handled through a secure server-side proxy implementation to avoid exposing sensitive credentials.
+Rather than embedding playback directly into the application, FocusFlow redirects users to their preferred platform while keeping the productivity experience lightweight and distraction-free.
 
 ---
 
@@ -121,10 +121,7 @@ FocusFlow Interface
  │
  ├── Productivity Tracking
  │
- └── Spotify Integration
-          │
-          ▼
-     Spotify API
+ └── External Music Links
 ```
 
 ---
@@ -133,27 +130,22 @@ FocusFlow Interface
 
 ### Frontend
 
-- HTML5
-- CSS3
-- Vanilla JavaScript (ES6+)
+* HTML5
+* CSS3
+* Vanilla JavaScript (ES6+)
 
 ### Browser APIs
 
-- Web Audio API
-- Canvas API
-- Local Storage API
-- Notifications API
-- Fullscreen API
+* Web Audio API
+* Canvas API
+* Local Storage API
+* Notifications API
+* Fullscreen API
 
-### Backend Utilities
+### Development & Deployment
 
-- Node.js
-- HTTPS Local Development Server
-- Netlify Functions
-
-### Third-Party Services
-
-- Spotify Web API
+* Node.js
+* Netlify
 
 ---
 
@@ -174,14 +166,13 @@ FocusFlow/
 │   └── audio.js
 │
 ├── sounds/
+│   ├── rain.mp3
 │   ├── forest.mp3
 │   ├── cafe.mp3
 │   ├── ocean.mp3
-│   └── fire.mp3
+│   └── fireplace.mp3
 │
-└── netlify/
-    └── functions/
-        └── spotify-token.js
+└── assets/
 ```
 
 ---
@@ -199,34 +190,28 @@ Long Break
 Custom Session
 ```
 
----
-
 ### 2. Create a Work Environment
 
 An ambient soundscape can be selected to create an environment suited to the task.
 
 Examples:
 
-- Rain for deep concentration
-- Café for creative work
-- Forest for relaxed focus
-
----
+* Rain for deep concentration
+* Café for creative work
+* Forest for relaxed focus
 
 ### 3. Enable Focus Lock
 
 Focus Lock can be activated to discourage interruptions and maintain commitment to the current session.
 
----
-
 ### 4. Complete the Session
 
 When the timer reaches zero:
 
-- Session statistics are updated
-- Focus minutes are recorded
-- The next break cycle begins automatically
-- Users can continue the Pomodoro workflow
+* Session statistics are updated
+* Focus minutes are recorded
+* The next break cycle begins automatically
+* Users can continue the Pomodoro workflow
 
 ---
 
@@ -257,14 +242,6 @@ Application runs at:
 http://localhost:3000
 ```
 
-or
-
-```text
-https://localhost:3000
-```
-
-when SSL certificates are configured.
-
 ---
 
 ## Deployment
@@ -273,18 +250,10 @@ FocusFlow is designed for deployment on modern static hosting platforms.
 
 Recommended providers:
 
-- Netlify
-- Vercel
-- Render
-
-For Spotify authentication support, Netlify deployment with serverless functions is recommended.
-
-### Environment Variables
-
-```env
-SPOTIFY_CLIENT_ID=your_client_id
-SPOTIFY_CLIENT_SECRET=your_client_secret
-```
+* Netlify
+* Vercel
+* Render
+* GitHub Pages
 
 ---
 
@@ -292,15 +261,15 @@ SPOTIFY_CLIENT_SECRET=your_client_secret
 
 Planned improvements include:
 
-- User authentication
-- Cloud synchronization
-- Productivity analytics dashboard
-- Session history
-- Goal tracking
-- Team workspaces
-- Mobile support
-- Calendar integrations
-- AI-assisted productivity recommendations
+* User Authentication
+* Cloud Synchronization
+* Productivity Analytics Dashboard
+* Session History
+* Goal Tracking
+* Team Workspaces
+* Mobile Support
+* Calendar Integrations
+* AI-Assisted Productivity Recommendations
 
 ---
 
